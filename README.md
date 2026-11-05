@@ -2,6 +2,18 @@
 
 Hidden Markov Model (HMM) over part-of-speech tags, sampling with temperature, Viterbi decoding, role-split states, and a trigram baseline. Guide: `Lab03_Chaotic_Text_Generator_Guide.pdf` (in the parent folder).
 
+**Live app:** https://chaotic-text-generator-01.streamlit.app/
+
+## Screenshots
+
+**Generation and metrics** (role-split HMM, T=1.0, seed 42, 100 sentences)
+
+![Generation and metrics](screenshots/01.png)
+
+**Viterbi tagger** (unknown words are flagged with a warning)
+
+![Viterbi tagger](screenshots/02.png)
+
 ## Files
 
 | Path | Purpose |
@@ -9,9 +21,10 @@ Hidden Markov Model (HMM) over part-of-speech tags, sampling with temperature, V
 | `src/pipeline.py` | HMM, Viterbi, temperature sampling, role-split states, trigram generator, metric functions |
 | `src/evaluate.py` | Evaluation on the synthetic corpus (4 metrics, 4 temperatures, 500 sentences per setting) |
 | `src/evaluate_real.py` | Part 2: the same HMM and Viterbi on real text (Universal Dependencies English EWT, downloaded on first run) |
-| `app.py` | Minimal Streamlit application (temperature, seed, role-split checkbox, two samples per model). Extend it as described in the guide, section 1.A |
+| `app.py` | Streamlit test bench: model selector (plain HMM, role-split HMM, trigram), temperature, seed, number of sentences, metrics panel, model comparison, temperature plot, Viterbi tagger with unknown-word warning, CSV download |
 | `data/corpus.csv` | Synthetic tagged corpus (1,200 sentences, 6 tags). `data/make_data.py` regenerates it |
 | `results/` | Outputs of the two evaluation scripts |
+| `screenshots/` | Screenshots of the deployed application |
 
 ## Run
 
@@ -27,6 +40,10 @@ Run every command from this folder.
 ## Deployment note
 
 Streamlit Community Cloud needs `requirements.txt` and `data/corpus.csv` in the repository. Do not commit `data/ewt/` (17 MB, already in `.gitignore`).
+
+## Limits
+
+The corpus is synthetic and the grammar is tiny. Metrics such as valid tag pattern are defined relative to this corpus and do not measure the quality of real English. For the trigram model, the displayed tags are estimated with Viterbi (this model has no hidden states).
 
 ## Data
 
